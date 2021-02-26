@@ -5,9 +5,11 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/spf13/viper"
 )
 
 func main() {
+	viper.SetConfigName(".env")
 	r := mux.NewRouter()
 
 	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("./videos"))))
