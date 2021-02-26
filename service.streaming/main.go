@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -9,11 +10,19 @@ import (
 )
 
 func main() {
-	viper.SetConfigName(".env")
+	readEnv()
+	port := viper.GetString("port")
+
+	if port == "" {
+		log.Fatal("PORT env variable not set")
+	}
+
 	r := mux.NewRouter()
 
 	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("./videos"))))
 
-	log.Print("Listening on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	fmt.Println(viper.GetString("key"))
+
+	log.Printf("Listening on port %s", port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), r))
 }
