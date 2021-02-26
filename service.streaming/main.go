@@ -21,8 +21,6 @@ func main() {
 
 	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("./videos"))))
 
-	fmt.Println(viper.GetString("key"))
-
 	log.Printf("Listening on port %s", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), r))
 }
