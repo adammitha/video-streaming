@@ -4,6 +4,8 @@ services:
     build: streaming
     environment: 
       - PORT=8080
+      - STORAGE_HOST=google-storage
+      - STORAGE_PORT=8081
     ports:
       - "8080:8080"
     restart: "no"

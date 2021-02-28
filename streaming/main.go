@@ -30,7 +30,7 @@ func main() {
 func getVideo(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
-	res, err := http.Get(fmt.Sprintf("%s:%s/%s.mp4", os.Getenv("STORAGE_HOST"), os.Getenv("STORAGE_PORT"), vars["video"]))
+	res, err := http.Get(fmt.Sprintf("http://%s:%s/%s.mp4", os.Getenv("STORAGE_HOST"), os.Getenv("STORAGE_PORT"), vars["video"]))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
