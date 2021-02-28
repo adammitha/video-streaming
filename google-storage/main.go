@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
+	"os"
 
 	"cloud.google.com/go/storage"
 	"github.com/adammitha/video-streaming/utils"
@@ -17,8 +19,10 @@ func main() {
 	r.HandleFunc("/{path}", videoHandler)
 	r.Use(utils.LoggingMiddleware)
 
-	log.Printf("Listening on port 8081")
-	log.Fatal(http.ListenAndServe(":8081", r))
+	port := os.Getenv("PORT")
+
+	log.Printf("Listening on port %s", port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), r))
 }
 
 func videoHandler(w http.ResponseWriter, r *http.Request) {

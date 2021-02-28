@@ -10,9 +10,8 @@ services:
   google-storage:
     build: google-storage
     environment:
+      - PORT=8081
       - GOOGLE_APPLICATION_CREDENTIALS=./gcs.json
       - PROJECT_ID=video-streaming-306005
-    environment:
-      - PORT=8081
     ports:
       - "8081:8081"
