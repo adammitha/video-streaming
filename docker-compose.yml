@@ -6,6 +6,8 @@ services:
       - PORT=8080
       - STORAGE_HOST=google-storage
       - STORAGE_PORT=8081
+      - DB_HOST=mongodb://db:27017
+      - DB_NAME=video-streaming
     ports:
       - "8080:8080"
     restart: "no"
@@ -17,3 +19,10 @@ services:
       - PROJECT_ID=video-streaming-306005
     ports:
       - "8081:8081"
+    restart: "no"
+  db:
+    image: mongo:4.2.8
+    container_name: db
+    ports:
+      - "8082:27017"
+    restart: always
