@@ -1,4 +1,6 @@
 version: '3'
+volumes:
+  video-streaming-db:
 services: 
   streaming:
     build: streaming
@@ -26,3 +28,5 @@ services:
     ports:
       - "8082:27017"
     restart: always
+    volumes: 
+      - video-streaming-db:/data/db
