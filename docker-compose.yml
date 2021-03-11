@@ -5,28 +5,41 @@ services:
   streaming:
     build: streaming
     environment: 
-      - PORT=8080
+      - PORT=80
       - STORAGE_HOST=google-storage
       - STORAGE_PORT=8081
       - DB_HOST=mongodb://db:27017
       - DB_NAME=video-streaming
     ports:
-      - "8080:8080"
+      - "8080:80"
+    volumes:
+      - ./streaming:/src
     restart: "no"
   google-storage:
     build: google-storage
     environment:
-      - PORT=8081
+      - PORT=80
       - GOOGLE_APPLICATION_CREDENTIALS=./gcs.json
       - PROJECT_ID=video-streaming-306005
     ports:
-      - "8081:8081"
+      - "8081:80"
+    volumes:
+      - ./google-storage:/src
+    restart: "no"
+  history:
+    build: history
+    environment:
+      - PORT=80
+    ports:
+      - "8082:80"
+    volumes:
+      - ./history:/src
     restart: "no"
   db:
     image: mongo:4.2.8
     container_name: db
     ports:
-      - "8082:27017"
+      - "8083:27017"
     restart: always
     volumes: 
       - video-streaming-db:/data/db
