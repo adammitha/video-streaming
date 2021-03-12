@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -21,8 +20,7 @@ import (
 var videosCollection *mongo.Collection
 
 func main() {
-	readEnv()
-	port := viper.GetString("port")
+	port := os.Getenv("PORT")
 
 	if port == "" {
 		log.Fatal("PORT env variable not set")
