@@ -12,6 +12,9 @@ services:
       - STORAGE_PORT=80
       - DB_HOST=mongodb://db:27017
       - DB_NAME=video-streaming
+    depends_on: 
+      - db
+      - google-storage
     ports:
       - "8080:80"
     volumes:
