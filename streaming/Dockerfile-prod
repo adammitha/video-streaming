@@ -1,0 +1,16 @@
+FROM golang:1.16-alpine as builder
+
+WORKDIR /src
+
+COPY go.* ./
+RUN go mod download
+
+COPY . .
+
+RUN go build -o main
+
+FROM scratch
+
+COPY --from=builder /src/main .
+
+CMD ["./main"]
